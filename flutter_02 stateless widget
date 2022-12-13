@@ -1,0 +1,57 @@
+import 'package:flutter/material.dart';
+
+// so here if we use a stateless widget it is more fast as flutter will just
+//see changes in new code and just execute that part only.
+//we dont have to run it again just save the code it will change change automatically.
+
+void main() =>runApp(MaterialApp(
+      home:Home()
+));
+
+
+class Home extends StatelessWidget {
+ // const ({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+    appBar: AppBar(
+    title: Text('My First App'),
+    centerTitle: true,
+    backgroundColor: Colors.redAccent,
+    ),
+    body: Center(
+    child: const Text(
+    'The Scaffold Widget',
+    style: TextStyle(
+    fontSize: 28,
+    fontWeight: FontWeight.bold,
+    ),
+    ),
+    ),
+    floatingActionButton: FloatingActionButton(
+    child: Text('click'),
+    onPressed:() {
+
+    },
+    ),
+    bottomNavigationBar: BottomNavigationBar(
+    unselectedItemColor: Colors.green,
+  selectedItemColor: Colors.white,
+  backgroundColor: Colors.brown,
+  items: const <BottomNavigationBarItem>[
+  BottomNavigationBarItem(
+  icon: Icon(Icons.home),
+  label: 'Home',
+  ),
+  BottomNavigationBarItem(
+  icon: Icon(Icons.settings),
+  label: 'Setting',
+  ),
+
+  ],
+  ),
+
+  );
+  }
+}
