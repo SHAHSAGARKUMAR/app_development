@@ -1,0 +1,90 @@
+// we want padding in all direction.
+
+import 'package:flutter/material.dart';
+
+// remember one thing widget start with capital letter
+// let say we are using scaffold then use ctrl+space to see properties to be used inside it.
+// it contain argument like body,appbar and bottom navigation bar
+// argument always start with small letter
+// just see property of argument like what we should write inside it.
+
+
+
+void main() =>runApp(MaterialApp(
+      home: Home()
+));
+
+
+class Home extends StatelessWidget {
+ // const ({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('sagar'),
+      ),
+      body: Center(
+      child: Container(
+        color: Colors.red,
+        child: Text(
+          'hello',
+          style: TextStyle(fontSize: 50,color: Colors.white),
+        ),
+        padding:EdgeInsets.all(15) ,
+
+      ),
+
+      ),
+    );
+
+
+  }
+}
+
+
+
+
+
+// if we want control of vertical padding and horizontal padding
+import 'package:flutter/material.dart';
+
+// remember one thing widget start with capital letter
+// let say we are using scaffold then use ctrl+space to see properties to be used inside it.
+// it contain argument like body,appbar and bottom navigation bar
+// argument always start with small letter
+// just see property of argument like what we should write inside it.
+
+
+
+void main() =>runApp(MaterialApp(
+      home: Home()
+));
+
+
+class Home extends StatelessWidget {
+ // const ({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('sagar'),
+      ),
+      body: Center(
+      child: Container(
+        color: Colors.red,
+        child: Text(
+          'hello',
+          style: TextStyle(fontSize: 50,color: Colors.white),
+        ),
+        padding:EdgeInsets.symmetric(horizontal: 15,vertical: 45) ,
+
+      ),
+
+      ),
+    );
+
+
+  }
+}
