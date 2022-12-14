@@ -1,0 +1,34 @@
+// very much important like if we have to take input from keyboard like login and something text field is required.
+
+
+import 'package:flutter/material.dart';
+
+
+void main() =>runApp(MaterialApp(
+    home: Home()
+));
+
+
+class Home extends StatelessWidget {
+  // const ({Key? key}) : super(key: key);
+String txt="";
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('sagar'),
+      ),
+      body: Center(
+        child: TextField(
+          onChanged: (String str) {
+            print(str);
+            txt=str;      //like this can be used to save pasword if it matches then only device will open
+          },
+         
+        ),
+      )
+    );
+
+
+  }
+}
