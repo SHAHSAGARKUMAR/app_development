@@ -1,0 +1,141 @@
+// simeple scrolling up to down
+
+import 'package:flutter/material.dart';
+//import '.app_screens/home.dart';
+
+void main() =>runApp(MaterialApp(
+  title: "Exploring UI Widget",
+    home: Home()
+));
+
+
+
+class Home extends StatelessWidget {
+  // const ({Key? key}) : super(key: key);
+  String txt="";
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("List View"),
+        ),
+            body: Container(
+        height: 50,
+      width: double.infinity,
+      child: ListView(
+        children: <Widget>[
+          Text('list viewe basics'),
+          Text('list viewe basics'),
+          Text('list viewe basics'),
+          Text('list viewe basics'),
+          Text('list viewe basics'),
+          Text('list viewe basics'),
+          Text('list viewe basics'),
+
+        ],
+      ),
+    ),
+
+    );
+
+
+  }
+}
+
+
+
+// we can also change the orientation to horizontal bcz it is vertical by default
+
+import 'package:flutter/material.dart';
+//import '.app_screens/home.dart';
+
+void main() =>runApp(MaterialApp(
+  title: "Exploring UI Widget",
+    home: Home()
+));
+
+
+
+class Home extends StatelessWidget {
+  // const ({Key? key}) : super(key: key);
+  String txt="";
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("List View"),
+        ),
+            body: Container(
+        height: 50,
+      width: double.infinity,
+      child: ListView(
+        scrollDirection:Axis.horizontal ,
+        children: <Widget>[
+          Text('list viewe basics '),
+          Text('list viewe basics '),
+          Text('list viewe basics '),
+          Text('list viewe basics '),
+          Text('list viewe basics '),
+          Text('list viewe basics '),
+          Text('list viewe basics '),
+
+        ],
+      ),
+    ),
+
+    );
+
+
+  }
+}
+
+
+
+// defining list by dyanimic data type
+
+
+import 'package:flutter/material.dart';
+//import '.app_screens/home.dart';
+
+void main() =>runApp(MaterialApp(
+  title: "Exploring UI Widget",
+    home: Home()
+));
+
+
+
+class Home extends StatelessWidget {
+  // const ({Key? key}) : super(key: key);
+  String txt="";
+  List<int> listitem=[1,2,3,4,5,6,7,8,9,0];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("List View"),
+        ),
+            body: Container(
+        height: double.infinity,
+      width: double.infinity,
+      child: ListView(
+        padding: EdgeInsets.symmetric(vertical: 20,horizontal: 20), //here padding is for entire list view
+        //scrollDirection:Axis.horizontal ,
+        children: listitem.map((e) {
+          return Text('count : $e ');
+        }).toList(), //here we know that children contain list of widget hence here map ill run loop and each widget we are convererting to list.
+
+
+
+      ),
+    ),
+
+    );
+
+
+  }
+}
+
+
+
+
+
