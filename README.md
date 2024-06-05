@@ -1,11 +1,8 @@
-This is maniActivity.kt
 package com.example.myapplication
 
 import android.Manifest
-import android.Manifest.permission.BLUETOOTH_CONNECT
 import android.app.Activity
 import android.app.AlertDialog
-import android.app.Instrumentation.ActivityResult
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGatt
@@ -20,20 +17,13 @@ import android.bluetooth.le.ScanSettings
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.audiofx.EnvironmentalReverb
 import android.os.Build
-import android.os.Build.VERSION.SDK_INT
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.os.Looper
-import android.os.Parcel
-import android.os.ParcelUuid
 import android.util.Log
-import android.view.View
 import android.widget.Button
-import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
@@ -93,6 +83,13 @@ class MainActivity : AppCompatActivity() {
         deviceAdapter = bleDeviceAdapter(scanResults, this)
         recyclerView.adapter = deviceAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+        
+        deviceAdapter.setOnItemClickListener(object : bleDeviceAdapter.onItemClickListener {
+            override fun onItemClick(position: Int) {
+                    connecttodevice(position)
+                }
+
+        })
 
 
 
@@ -304,9 +301,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // here device is the device which i will selefor this from the list of all devices
-    override fun onItemClick(device: BluetoothDevice){
-        connecttodevice(device)
-    }
+    
 
     fun connecttodevice(device: BluetoothDevice){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
@@ -339,10 +334,9 @@ class MainActivity : AppCompatActivity() {
 
 
 
-This is bleDeviceAdapter.kt
+
 package com.example.myapplication
 
-import android.bluetooth.BluetoothDevice
 import android.bluetooth.le.ScanResult
 import android.content.Context
 import android.view.LayoutInflater
@@ -351,20 +345,22 @@ import android.view.ViewGroup
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
 
-class bleDeviceAdapter(private val devices : List<ScanResult>, private val itemClickListener: OnItemClickListener) : RecyclerView.Adapter<bleDeviceAdapter.ViewHolder>() {
+class bleDeviceAdapter(private val devices : List<ScanResult>, var context: Context) : RecyclerView.Adapter<bleDeviceAdapter.ViewHolder>() {
 
-//    private lateinit var myListener: OnItemClickListener
+    private lateinit var myListener: OnItemClickListener
     interface onItemClickListener{
-        fun onItemClick(device: BluetoothDevice)
+        fun onItemClick(position: Int)
+    }
+    fun setOnItemClickListener(listener: onItemClickListener){
+        myListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.device_row_layout, parent, false)
 
-        return ViewHolder(view)
+        return ViewHolder(view, myListener)
     }
 
     override fun getItemCount(): Int {
@@ -375,24 +371,23 @@ class bleDeviceAdapter(private val devices : List<ScanResult>, private val itemC
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val result = devices[position]
-//        holder.deviceName.text = result.device.name
-//        holder.deviceAddress.text = result.device.address
+        holder.deviceName.text = result.device.name
+        holder.deviceAddress.text = result.device.address
         // add onClickListener to the item
 
-        holder.bind(result.device,itemClickListener)
 
     }
 
 
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-//        val deviceName: TextView = itemView.findViewById(R.id.deviceNameTextView)
-//        val deviceAddress :TextView = itemView.findViewById(R.id.deviceAdressTextView)
-//
-        fun bind(device: BluetoothDevice, clickListener: OnItemClickListener){
-            itemView.findViewById<TextView>(R.id.deviceAdressTextView).text = device.name ?:"Unnamed"
-            itemView.findViewById<TextView>(R.id.deviceAdressTextView).text = device.address
-            itemView.setOnClickListener { clickListener.onItemClick(device) }
+    class ViewHolder(itemView: View, listener: OnItemClickListener) : RecyclerView.ViewHolder(itemView){
+        val deviceName: TextView = itemView.findViewById(R.id.deviceNameTextView)
+        val deviceAddress :TextView = itemView.findViewById(R.id.deviceAdressTextView)
+
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
         }
 
     }
